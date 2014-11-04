@@ -64,6 +64,23 @@ public class Events implements Listener
                     s.sendData("gReq", ev.getData());
                     return;
                 }
+            } else if (subchannel.equals("new_comment"))
+            {
+                String receiver = in.readUTF();
+                boolean staff = Boolean.parseBoolean(in.readUTF());
+                int id = Integer.parseInt(in.readUTF());
+
+                for (ServerInfo s : main.getProxy().getServers().values())
+                {
+                    for (ProxiedPlayer p : s.getPlayers())
+                    {
+                        if (p.getName().equals(receiver))
+                        {
+                            s.sendData("gReq", ev.getData());
+                            return;
+                        }
+                    }
+                }
             }
         }
     }
